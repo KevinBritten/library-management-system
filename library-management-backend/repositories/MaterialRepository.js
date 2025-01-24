@@ -35,6 +35,7 @@ class MaterialRepository {
   }
 
   delete(id) {
+    id = Number(id);
     const material = this.findById(id);
     if (!material) return false;
     this.db.materials = this.db.materials.filter(

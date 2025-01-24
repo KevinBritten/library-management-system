@@ -25,6 +25,17 @@ class MaterialController {
       res.status(500).json({ error: error.message });
     }
   };
+
+  deleteMaterial = async (req, res) => {
+    try {
+      this.materialService.delete(req.params.id);
+      return res
+        .status(200)
+        .json({ message: "Material deleted successfully." });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  };
 }
 
 export default new MaterialController();

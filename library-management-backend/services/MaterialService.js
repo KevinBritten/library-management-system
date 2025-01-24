@@ -14,6 +14,11 @@ class MaterialService {
   getAll() {
     return this._repo.findAll();
   }
+
+  delete(id) {
+    const result = this._repo.delete(id);
+    if (!result) throw new Error(`No material with id ${id} exists.`);
+  }
 }
 
 export default MaterialService;
