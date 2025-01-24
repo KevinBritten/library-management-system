@@ -8,3 +8,5 @@ class Customer {
     this.borrowedMaterials = [];
   }
 }
+
+export default Customer;
