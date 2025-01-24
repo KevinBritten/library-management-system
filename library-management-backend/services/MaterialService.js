@@ -15,6 +15,11 @@ class MaterialService {
     return this._repo.findAll();
   }
 
+  update(id, updatedProperties) {
+    const result = this._repo.update(id, updatedProperties);
+    if (!result) throw new Error(`No material with id ${id} exists.`);
+  }
+
   delete(id) {
     const result = this._repo.delete(id);
     if (!result) throw new Error(`No material with id ${id} exists.`);

@@ -1,6 +1,8 @@
 import MaterialService from "../services/MaterialService.js";
 import Material from "../models/Material.js";
 
+import { createUpdateObject } from "../utils/utils.js";
+
 class MaterialController {
   constructor() {
     this.materialService = new MaterialService();
@@ -21,6 +23,21 @@ class MaterialController {
     try {
       const materials = this.materialService.getAll();
       return res.status(200).json({ materials: materials });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  };
+
+  updateMaterial = async (req, res) => {
+    try {
+      const updatedProperties = createUpdateObject(
+        ["name", "isbn", "category"],
+        req.body
+      );
+      this.materialService.update(req.params.id, updatedProperties);
+      return res
+        .status(200)
+        .json({ message: "Material updated successfully." });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
