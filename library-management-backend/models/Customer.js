@@ -1,10 +1,10 @@
 class Customer {
   static nextId = 1;
 
-  constructor(name) {
+  constructor(name, dateAdded) {
     this.id = Customer.nextId++;
     this.name = name;
-    this.addedDate = Date.now();
+    this.addedDate = dateAdded;
     this.borrowedMaterials = [];
   }
 }
