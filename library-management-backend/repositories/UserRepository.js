@@ -38,4 +38,4 @@ class UserRepository {
   }
 }
 
-exports.default = UserRepository;
+export default UserRepository;
