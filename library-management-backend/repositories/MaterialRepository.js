@@ -6,7 +6,7 @@ class MaterialRepository {
   }
 
   create(material) {
-    this.db.push(material);
+    this.db.materials.push(material);
   }
 
   findAll() {
@@ -44,4 +44,4 @@ class MaterialRepository {
   }
 }
 
-exports.default = MaterialRepository;
+export default MaterialRepository;

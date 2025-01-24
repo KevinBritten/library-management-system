@@ -6,4 +6,4 @@ class MockDatabase {
   }
 }
 
-module.exports = new MockDatabase();
+export default new MockDatabase();

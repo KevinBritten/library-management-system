@@ -36,4 +36,4 @@ class CustomerRepository {
   }
 }
 
-exports.default = CustomerRepository;
+export default CustomerRepository;

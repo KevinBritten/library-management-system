@@ -8,3 +8,5 @@ class Material {
     this.category = category;
   }
 }
+
+export default Material;
