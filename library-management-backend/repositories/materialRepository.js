@@ -1,6 +1,6 @@
 import MockDatabase from "../database/MockDatabase.js";
 
-class MaterialsRepository {
+class MaterialRepository {
   constructor() {
     this.db = MockDatabase;
   }
@@ -43,3 +43,5 @@ class MaterialsRepository {
     return true;
   }
 }
+
+exports.default = MaterialRepository;
