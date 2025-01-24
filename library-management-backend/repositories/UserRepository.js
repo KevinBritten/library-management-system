@@ -6,7 +6,7 @@ class UserRepository {
   }
 
   create(user) {
-    this.db.push(user);
+    this.db.users.push(user);
   }
 
   findAll() {
@@ -31,6 +31,7 @@ class UserRepository {
   }
 
   delete(id) {
+    id = Number(id);
     const user = this.findById(id);
     if (!user) return false;
     this.db.users = this.db.users.filter((user) => user.id !== id);

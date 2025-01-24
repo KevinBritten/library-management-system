@@ -6,7 +6,7 @@ class CustomerRepository {
   }
 
   create(customer) {
-    this.db.push(customer);
+    this.db.customers.push(customer);
   }
 
   findAll() {
@@ -27,6 +27,7 @@ class CustomerRepository {
   }
 
   delete(id) {
+    id = Number(id);
     const customer = this.findById(id);
     if (!customer) return false;
     this.db.customers = this.db.customers.filter(
