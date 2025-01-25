@@ -1,5 +1,6 @@
 import materialRouter from "./routes/materials.js";
 import customerRouter from "./routes/customers.js";
+import userRouter from "./routes/users.js";
 
 // var createError = require('http-errors');
 // var express = require("express");
@@ -17,6 +18,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/material", materialRouter);
 app.use("/customer", customerRouter);
+app.use("/user", userRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
