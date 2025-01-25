@@ -1,6 +1,7 @@
 import materialRouter from "./routes/materials.js";
 import customerRouter from "./routes/customers.js";
 import userRouter from "./routes/users.js";
+import cors from "cors";
 
 // var createError = require('http-errors');
 // var express = require("express");
@@ -12,6 +13,7 @@ import express from "express";
 var app = express();
 
 // app.use(logger('dev'));
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 // app.use(cookieParser());
