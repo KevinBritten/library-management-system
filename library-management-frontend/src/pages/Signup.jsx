@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { useUser } from "../contexts/UserContext";
 import axiosInstance from "../api/axiosInstance.js";
 
 function Signup() {
+  const navigate = useNavigate();
   const { setUser } = useUser();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -15,6 +17,7 @@ function Signup() {
       await axiosInstance
         .post("/user/signup", { username, password, role })
         .then((res) => setUser(res.data.user));
+      navigate("/catalog");
     } catch (e) {
       console.error(e);
     }
@@ -22,7 +25,7 @@ function Signup() {
 
   return (
     <div>
-      <h1>Login/Signup</h1>
+      <h1>Signup</h1>
       <form>
         <div>
           <label htmlFor="username">Username:</label>
