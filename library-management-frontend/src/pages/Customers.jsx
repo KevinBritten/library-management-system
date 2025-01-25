@@ -35,12 +35,26 @@ function Customers() {
         ) : customers.length === 0 ? (
           <h1>No customers found.</h1>
         ) : (
-          customers.map((c) => (
-            <h1 key={c.id} className="text-lg">
-              {c.name}
-            </h1>
-          ))
+          <table className="table-auto border-collapse border border-gray-300 w-full">
+            <thead>
+              <tr className="bg-gray-200">
+                <th className="border border-gray-300 px-4 py-2 text-left">
+                  Name
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {customers.map((customer) => (
+                <tr key={customer.id}>
+                  <td className="border border-gray-300 px-4 py-2">
+                    {customer.name}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         )}
+        <button>Add Customer</button>
       </div>
     </div>
   );
