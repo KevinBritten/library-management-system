@@ -1,16 +1,22 @@
 import { useState } from "react";
 
+import { useUser } from "../contexts/UserContext";
 import axiosInstance from "../api/axiosInstance.js";
 
 function Login() {
+  const { setUser } = useUser();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const login = async (e) => {
     e.preventDefault();
-    await axiosInstance
-      .post("/user/login", { username, password })
-      .then((res) => console.log(res));
+    try {
+      await axiosInstance
+        .post("/user/login", { username, password })
+        .then((res) => setUser(res.data.user));
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (

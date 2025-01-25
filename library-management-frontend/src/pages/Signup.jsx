@@ -1,17 +1,23 @@
 import { useState } from "react";
 
+import { useUser } from "../contexts/UserContext";
 import axiosInstance from "../api/axiosInstance.js";
 
-function Login() {
+function Signup() {
+  const { setUser } = useUser();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("employee");
 
   const signup = async (e) => {
     e.preventDefault();
-    await axiosInstance
-      .post("/user/signup", { username, password, role })
-      .then((res) => console.log(res));
+    try {
+      await axiosInstance
+        .post("/user/signup", { username, password, role })
+        .then((res) => setUser(res.data.user));
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (
@@ -71,4 +77,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Signup;
