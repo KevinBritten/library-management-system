@@ -5,11 +5,12 @@ import axiosInstance from "../api/axiosInstance.js";
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("employee");
 
-  const login = async (e) => {
+  const signup = async (e) => {
     e.preventDefault();
     await axiosInstance
-      .post("/user/login", { username, password })
+      .post("/user/signup", { username, password, role })
       .then((res) => console.log(res));
   };
 
@@ -36,8 +37,33 @@ function Login() {
           />
         </div>
         <div>
-          <button type="submit" onClick={login}>
-            Login
+          <label>Select Role:</label>
+          <div>
+            <input
+              type="radio"
+              id="employee"
+              name="role"
+              value="employee"
+              checked={role === "employee"}
+              onChange={(e) => setRole(e.target.value)}
+            />
+            <label htmlFor="employee">Employee</label>
+          </div>
+          <div>
+            <input
+              type="radio"
+              id="owner"
+              name="role"
+              value="owner"
+              checked={role === "owner"}
+              onChange={(e) => setRole(e.target.value)}
+            />
+            <label htmlFor="owner">Owner</label>
+          </div>
+        </div>
+        <div>
+          <button type="submit" onClick={signup}>
+            Signup
           </button>
         </div>
       </form>
