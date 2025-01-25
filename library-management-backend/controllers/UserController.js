@@ -30,7 +30,6 @@ class UserController {
         username,
         password
       );
-      console.log(result);
       if (!result) return res.status(500).json({ error: "Incorrect password" });
       const user = this.userService.getUserByUsername(username);
       return res.status(200).json({
