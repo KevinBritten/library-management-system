@@ -19,7 +19,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/customers" element={<Customers />} />
-          <Route path="/customers" element={<Catalog />} />
+          <Route path="/catalog" element={<Catalog />} />
         </Routes>
       </Router>
     </UserProvider>
