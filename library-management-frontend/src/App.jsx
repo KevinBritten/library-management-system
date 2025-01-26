@@ -9,7 +9,7 @@ import Catalog from "./pages/Catalog.jsx";
 import Customers from "./pages/Customers.jsx";
 import EditCustomer from "./pages/EditCustomer.jsx";
 
-import Header from "./components/Header.jsx";
+import Header from "./components/header/Header.jsx";
 
 function App() {
   return (
