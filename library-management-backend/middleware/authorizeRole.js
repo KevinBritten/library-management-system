@@ -4,7 +4,7 @@ const authorizeRole = (requiredRole) => {
   return (req, res, next) => {
     const userService = new UserService();
     try {
-      const { username } = req.body;
+      const { username } = req.body.user;
       const user = userService.getUserByUsername(username);
       const { role } = user;
       if (role !== requiredRole)
