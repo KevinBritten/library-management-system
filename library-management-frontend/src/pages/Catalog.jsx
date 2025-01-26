@@ -35,6 +35,20 @@ function Catalog() {
     fetchCatalogItems();
   }, []);
 
+  const handleCheckout = async (catalog) => {
+    navigate("/catalog/checkout", { state: { catalog } });
+  };
+
+  const handleReturn = async (id) => {
+    try {
+      await axiosInstance.patch(`/material/return/${id}`);
+      await fetchCatalogItems();
+    } catch (e) {
+      console.error(e);
+      alert("Unable to return item");
+    }
+  };
+
   const handleEdit = (catalog) => {
     navigate("/catalog/edit", { state: { catalog } });
   };
@@ -45,13 +59,11 @@ function Catalog() {
 
   const handleDelete = async (id) => {
     try {
-      console.log(user);
       await axiosInstance.delete(`material/delete/${id}`, { data: { user } });
       await fetchCatalogItems();
     } catch (e) {
       alert(e.message);
     }
-    console.log(id);
   };
 
   return (
@@ -69,8 +81,23 @@ function Catalog() {
             <TableHead
               headers={
                 user.role == "owner"
-                  ? ["Name", "ISBN", "Category", "Edit", "Delete"]
-                  : ["Name", "ISBN", "Category", "Edit"]
+                  ? [
+                      "Name",
+                      "ISBN",
+                      "Category",
+                      "Availability",
+                      "Checkout/Return",
+                      "Edit",
+                      "Delete",
+                    ]
+                  : [
+                      "Name",
+                      "ISBN",
+                      "Category",
+                      "Availability",
+                      "Checkout/Return",
+                      "Edit",
+                    ]
               }
             />{" "}
             <tbody>
@@ -79,6 +106,33 @@ function Catalog() {
                   <TableCell>{catalog.name}</TableCell>
                   <TableCell>{catalog.isbn}</TableCell>
                   <TableCell>{catalog.category}</TableCell>
+                  <TableCell>
+                    {catalog.borrowingCustomerName
+                      ? `Borrowed by: ${catalog.borrowingCustomerName} (user id: ${catalog.borrowingCustomerId})`
+                      : "Available"}
+                  </TableCell>
+                  <TableCell>
+                    {catalog.borrowingCustomerId ? (
+                      <a
+                        onClick={() => {
+                          handleReturn(catalog.id);
+                        }}
+                        className="text-blue-500 hover:text-blue-700 underline text-lg font-medium cursor-pointer"
+                      >
+                        Return
+                      </a>
+                    ) : (
+                      <a
+                        onClick={() => {
+                          handleCheckout(catalog);
+                        }}
+                        className="text-blue-500 hover:text-blue-700 underline text-lg font-medium cursor-pointer"
+                      >
+                        Checkout
+                      </a>
+                    )}
+                  </TableCell>
+
                   <TableCell>
                     <a
                       className="text-blue-500 hover:text-blue-700 underline text-lg font-medium cursor-pointer"

@@ -21,7 +21,7 @@ function Customers() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchCatalogItems = async () => {
+    const fetchCustomers = async () => {
       try {
         const response = await axiosInstance.get("/customer/getAll");
         console.log(response);
@@ -33,7 +33,7 @@ function Customers() {
         setLoading(false);
       }
     };
-    fetchCatalogItems();
+    fetchCustomers();
   }, []);
 
   const handleEdit = (customer) => {
