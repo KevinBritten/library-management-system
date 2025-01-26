@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
-// import { useNavigate } from "react-router-dom";
-
-// import { useUser } from "../contexts/UserContext";
+import { useUser } from "../contexts/UserContext";
 import axiosInstance from "../api/axiosInstance.js";
 import { useNavigate } from "react-router-dom";
 
@@ -12,6 +10,11 @@ import { formatDate } from "../utils/formatDate.js";
 
 function Customers() {
   const navigate = useNavigate();
+  const { user } = useUser();
+
+  useEffect(() => {
+    if (!user) navigate("/");
+  }, [navigate, user]);
 
   const [customers, setCustomers] = useState();
   const [loading, setLoading] = useState(true);
