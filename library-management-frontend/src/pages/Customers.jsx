@@ -5,6 +5,9 @@ import { useState, useEffect } from "react";
 import axiosInstance from "../api/axiosInstance.js";
 import { useNavigate } from "react-router-dom";
 
+import { PageTitle, ConfirmButton } from "../components/commonComponents.jsx";
+import { Table, TableHead, TableCell } from "../components/tableComponents.jsx";
+
 import { formatDate } from "../utils/formatDate.js";
 
 function Customers() {
@@ -40,7 +43,7 @@ function Customers() {
   return (
     <div>
       <div className="p-4">
-        <h1 className="text-xl font-bold text-center py-4">Customers Page</h1>
+        <PageTitle>Customers Page</PageTitle>
         {loading ? (
           <h1>Loading...</h1>
         ) : error ? (
@@ -48,30 +51,14 @@ function Customers() {
         ) : customers.length === 0 ? (
           <h1>No customers found.</h1>
         ) : (
-          <table className="table-auto border-collapse border border-gray-300 w-full">
-            <thead>
-              <tr className="bg-gray-200">
-                <th className="border border-gray-300 px-4 py-2 text-left">
-                  Name
-                </th>
-                <th className="border border-gray-300 px-4 py-2 text-left">
-                  Date Added
-                </th>
-                <th className="border border-gray-300 px-4 py-2 text-left">
-                  Edit
-                </th>
-              </tr>
-            </thead>
+          <Table>
+            <TableHead headers={["Name", "Date Added", "Edit"]} />{" "}
             <tbody>
               {customers.map((customer) => (
                 <tr key={customer.id}>
-                  <td className="border border-gray-300 px-4 py-2">
-                    {customer.name}
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    {formatDate(customer.addedDate)}
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">
+                  <TableCell>{customer.name}</TableCell>
+                  <TableCell>{formatDate(customer.addedDate)}</TableCell>
+                  <TableCell>
                     <a
                       className="text-blue-500 hover:text-blue-700 underline text-lg font-medium cursor-pointer"
                       onClick={() => {
@@ -80,19 +67,14 @@ function Customers() {
                     >
                       Edit
                     </a>
-                  </td>
+                  </TableCell>
                 </tr>
               ))}
             </tbody>
-          </table>
+          </Table>
         )}
         <div className={"py-4"}>
-          <button
-            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-            onClick={handleAdd}
-          >
-            Add Customer
-          </button>
+          <ConfirmButton onClick={handleAdd}>Add Customer</ConfirmButton>
         </div>
       </div>
     </div>

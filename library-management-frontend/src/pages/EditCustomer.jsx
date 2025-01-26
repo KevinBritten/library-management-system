@@ -4,6 +4,12 @@ import { useNavigate } from "react-router-dom";
 
 import axiosInstance from "../api/axiosInstance.js";
 
+import {
+  PageTitle,
+  SubmitButtonWithLoading,
+  CancelButton,
+} from "../components/commonComponents.jsx";
+
 function EditCustomer() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -45,9 +51,7 @@ function EditCustomer() {
   };
   return (
     <div className="p-4">
-      <h1 className="text-xl font-bold mb-4">
-        {customer ? "Edit Customer" : "Create Customer"}
-      </h1>
+      <PageTitle>{customer ? "Edit Customer" : "Create Customer"}</PageTitle>
 
       <form
         onSubmit={(e) => {
@@ -74,24 +78,10 @@ function EditCustomer() {
         {error && <p className="text-red-500">{error}</p>}
 
         <div className="flex space-x-4">
-          <button
-            type="submit"
-            disabled={loading}
-            className={`px-4 py-2 text-white rounded ${
-              loading
-                ? "bg-gray-500 cursor-not-allowed"
-                : "bg-blue-500 hover:bg-blue-600"
-            }`}
-          >
+          <SubmitButtonWithLoading>
             {loading ? "Saving..." : "Save Customer"}
-          </button>
-          <button
-            type="button"
-            onClick={handleCancel}
-            className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
-          >
-            Cancel
-          </button>
+          </SubmitButtonWithLoading>
+          <CancelButton onClick={handleCancel}>Cancel</CancelButton>
         </div>
       </form>
     </div>
