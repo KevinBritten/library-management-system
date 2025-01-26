@@ -15,6 +15,15 @@ class MaterialService {
     return this._repo.findAll();
   }
 
+  search(term, mode) {
+    if (mode === "name") return this._repo.findAllByName(term);
+    else if (mode === "isbn") {
+      const result = this._repo.findByIsbn(term);
+      return result ? [result] : [];
+    } else if (mode === "category") return this._repo.findAllByCategory(term);
+    else throw new Error(`Invalid search mode: ${mode}`);
+  }
+
   update(id, updatedProperties) {
     const result = this._repo.update(id, updatedProperties);
     if (!result) throw new Error(`No material with id ${id} exists.`);

@@ -17,7 +17,7 @@ function EditCatalog() {
   const { catalog } = location.state || {};
   const [name, setName] = useState(catalog ? catalog.name : "");
   const [isbn, setIsbn] = useState(catalog ? catalog.isbn : "");
-  const [category, setCategory] = useState(catalog ? catalog.category : "");
+  const [category, setCategory] = useState(catalog ? catalog.category : "book");
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");

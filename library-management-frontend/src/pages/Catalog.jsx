@@ -3,7 +3,11 @@ import { useUser } from "../contexts/UserContext";
 import axiosInstance from "../api/axiosInstance.js";
 import { useNavigate } from "react-router-dom";
 
-import { PageTitle, ConfirmButton } from "../components/commonComponents.jsx";
+import {
+  PageTitle,
+  ConfirmButton,
+  SubmitButtonWithLoading,
+} from "../components/commonComponents.jsx";
 import { Table, TableHead, TableCell } from "../components/tableComponents.jsx";
 
 function Catalog() {
@@ -14,9 +18,12 @@ function Catalog() {
     if (!user) navigate("/");
   }, [navigate, user]);
 
-  const [catalogs, setCatalogs] = useState();
+  const [catalogs, setCatalogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const [searchMode, setSearchMode] = useState("name");
+  const [searchTerm, setSearchTerm] = useState("");
 
   const fetchCatalogItems = async () => {
     try {
@@ -34,6 +41,31 @@ function Catalog() {
   useEffect(() => {
     fetchCatalogItems();
   }, []);
+
+  const handleSearch = async () => {
+    try {
+      await axiosInstance
+        .get("/material/search", {
+          params: {
+            term: searchTerm,
+            mode: searchMode,
+          },
+        })
+        .then((res) => {
+          setCatalogs(res.data.materials);
+        });
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const handleSearchReset = async () => {
+    try {
+      await fetchCatalogItems();
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   const handleCheckout = async (catalog) => {
     navigate("/catalog/checkout", { state: { catalog } });
@@ -70,6 +102,77 @@ function Catalog() {
     <div>
       <div className="p-4">
         <PageTitle>Catalog Page</PageTitle>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSearch();
+          }}
+          className="py-4"
+        >
+          <input
+            type="text"
+            placeholder="Search catalog"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="border border-gray-300 rounded py-2 px-4 mr-2"
+          />
+          <SubmitButtonWithLoading className="m-2">
+            Search
+          </SubmitButtonWithLoading>
+          <ConfirmButton
+            onClick={(e) => {
+              e.preventDefault();
+              handleSearchReset();
+            }}
+          >
+            Reset
+          </ConfirmButton>
+
+          <div className="flex items-center space-x-4 mb-4">
+            <div className="flex items-center">
+              <input
+                type="radio"
+                id="name"
+                name="searchMode"
+                value="name"
+                checked={searchMode == "name"}
+                onChange={(e) => setSearchMode(e.target.value)}
+                className="mr-2"
+              />
+              <label htmlFor="name" className="text-gray-700">
+                Name
+              </label>
+            </div>
+            <div className="flex items-center">
+              <input
+                type="radio"
+                id="isbn"
+                name="searchMode"
+                value="isbn"
+                checked={searchMode == "isbn"}
+                onChange={(e) => setSearchMode(e.target.value)}
+                className="mr-2"
+              />
+              <label htmlFor="isbn" className="text-gray-700">
+                ISBN
+              </label>
+            </div>
+            <div className="flex items-center">
+              <input
+                type="radio"
+                id="category"
+                name="searchMode"
+                value="category"
+                checked={searchMode == "category"}
+                onChange={(e) => setSearchMode(e.target.value)}
+                className="mr-2"
+              />
+              <label htmlFor="category" className="text-gray-700">
+                Category
+              </label>
+            </div>
+          </div>
+        </form>
         {loading ? (
           <h1>Loading...</h1>
         ) : error ? (

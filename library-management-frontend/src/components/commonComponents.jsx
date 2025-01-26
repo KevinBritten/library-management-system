@@ -18,7 +18,7 @@ export const SubmitButtonWithLoading = ({ children, loading }) => {
     <button
       type="submit"
       disabled={loading}
-      className={`px-4 py-2 text-white rounded cursor-pointer ${
+      className={`px-4 py-2 text-white rounded cursor-pointer mr-1 ${
         loading
           ? "bg-gray-500 cursor-not-allowed"
           : "bg-blue-500 hover:bg-blue-600"

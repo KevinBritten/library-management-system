@@ -6,6 +6,8 @@ import authorizeRole from "../middleware/authorizeRole.js";
 
 router.post("/create", MaterialController.createMaterial);
 router.get("/getAll", MaterialController.getAllMaterials);
+router.get("/search", MaterialController.searchMaterials);
+
 router.delete(
   "/delete/:id",
   authorizeRole("owner"),

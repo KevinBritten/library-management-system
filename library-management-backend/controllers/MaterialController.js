@@ -28,6 +28,16 @@ class MaterialController {
     }
   };
 
+  searchMaterials = async (req, res) => {
+    try {
+      const { term, mode } = req.query;
+      const results = this.materialService.search(term, mode);
+      return res.status(200).json({ materials: results });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  };
+
   updateMaterial = async (req, res) => {
     try {
       const updatedProperties = createUpdateObject(

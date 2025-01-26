@@ -22,11 +22,13 @@ class MaterialRepository {
   }
 
   findAllByName(name) {
-    return this.db.materials.map((material) => material.name == name);
+    return this.db.materials.filter((material) => material.name == name);
   }
 
   findAllByCategory(category) {
-    return this.db.materials.map((material) => material.category == category);
+    return this.db.materials.filter(
+      (material) => material.category == category
+    );
   }
 
   update(id, updateFields) {
