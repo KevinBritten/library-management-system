@@ -8,6 +8,7 @@ import Signup from "./pages/Signup.jsx";
 import Catalog from "./pages/Catalog.jsx";
 import Customers from "./pages/Customers.jsx";
 import EditCustomer from "./pages/EditCustomer.jsx";
+import EditCatalog from "./pages/EditCatalog.jsx";
 
 import Header from "./components/header/Header.jsx";
 
@@ -22,8 +23,8 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/customers" element={<Customers />} />
           <Route path="/customers/edit" element={<EditCustomer />} />
-
           <Route path="/catalog" element={<Catalog />} />
+          <Route path="/catalog/edit" element={<EditCatalog />} />
         </Routes>
       </Router>
     </UserProvider>

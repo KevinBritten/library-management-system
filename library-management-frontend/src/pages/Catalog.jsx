@@ -11,7 +11,7 @@ import { Table, TableHead, TableCell } from "../components/tableComponents.jsx";
 function Catalog() {
   const navigate = useNavigate();
 
-  const [materials, setMaterials] = useState();
+  const [catalogs, setCatalogs] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -20,9 +20,9 @@ function Catalog() {
       try {
         const response = await axiosInstance.get("/material/getAll");
         console.log(response);
-        setMaterials(response.data.materials);
+        setCatalogs(response.data.materials);
       } catch (err) {
-        console.error("Error fetching materials:", err);
+        console.error("Error fetching catalogs:", err);
         setError(err.message);
       } finally {
         setLoading(false);
@@ -31,12 +31,12 @@ function Catalog() {
     fetchCatalogItems();
   }, []);
 
-  const handleEdit = (material) => {
-    navigate("/materials/edit", { state: { material } });
+  const handleEdit = (catalog) => {
+    navigate("/catalog/edit", { state: { catalog } });
   };
 
   const handleAdd = () => {
-    navigate("/materials/edit");
+    navigate("/catalog/edit");
   };
   return (
     <div>
@@ -46,23 +46,23 @@ function Catalog() {
           <h1>Loading...</h1>
         ) : error ? (
           <h1>Error: {error}</h1>
-        ) : materials.length === 0 ? (
-          <h1>No materials found.</h1>
+        ) : catalogs.length === 0 ? (
+          <h1>No catalogs found.</h1>
         ) : (
           <Table>
             <TableHead headers={["Name", "ISBN", "Category", "Edit"]} />{" "}
             <tbody>
-              {materials.map((material) => (
-                <tr key={material.id}>
-                  <TableCell>{material.name}</TableCell>
-                  <TableCell>{material.isbn}</TableCell>
-                  <TableCell>{material.category}</TableCell>
+              {catalogs.map((catalog) => (
+                <tr key={catalog.id}>
+                  <TableCell>{catalog.name}</TableCell>
+                  <TableCell>{catalog.isbn}</TableCell>
+                  <TableCell>{catalog.category}</TableCell>
 
                   <TableCell>
                     <a
                       className="text-blue-500 hover:text-blue-700 underline text-lg font-medium cursor-pointer"
                       onClick={() => {
-                        handleEdit(material);
+                        handleEdit(catalog);
                       }}
                     >
                       Edit
@@ -74,7 +74,7 @@ function Catalog() {
           </Table>
         )}
         <div className={"py-4"}>
-          <ConfirmButton onClick={handleAdd}>Add Material</ConfirmButton>
+          <ConfirmButton onClick={handleAdd}>Add Catalog</ConfirmButton>
         </div>
       </div>
     </div>
