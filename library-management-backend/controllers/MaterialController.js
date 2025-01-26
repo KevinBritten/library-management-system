@@ -43,6 +43,31 @@ class MaterialController {
     }
   };
 
+  borrowMaterial = async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { customer } = req.body;
+      this.materialService.setBorrowingCustomer(id, customer);
+      return res
+        .status(200)
+        .json({ message: "Material borrowed successfully." });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  };
+
+  returnMaterial = async (req, res) => {
+    try {
+      const { id } = req.params;
+      this.materialService.returnMaterial(id);
+      return res
+        .status(200)
+        .json({ message: "Material returned successfully." });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  };
+
   deleteMaterial = async (req, res) => {
     try {
       this.materialService.delete(req.params.id);

@@ -12,5 +12,7 @@ router.delete(
   MaterialController.deleteMaterial
 );
 router.put("/update/:id", MaterialController.updateMaterial);
+router.patch("/borrow/:id", MaterialController.borrowMaterial);
+router.patch("/return/:id", MaterialController.returnMaterial);
 
 export default router;

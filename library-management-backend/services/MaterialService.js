@@ -20,6 +20,22 @@ class MaterialService {
     if (!result) throw new Error(`No material with id ${id} exists.`);
   }
 
+  setBorrowingCustomer(id, customer) {
+    const updatedProperties = {
+      borrowingCustomerId: customer.id,
+      borrowingCustomerName: customer.name,
+    };
+    this.update(id, updatedProperties);
+  }
+
+  returnMaterial(id) {
+    const updatedProperties = {
+      borrowingCustomerId: null,
+      borrowingCustomerName: null,
+    };
+    this.update(id, updatedProperties);
+  }
+
   delete(id) {
     const result = this._repo.delete(id);
     if (!result) throw new Error(`No material with id ${id} exists.`);

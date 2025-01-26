@@ -6,6 +6,8 @@ class Material {
     this.name = name;
     this.isbn = isbn;
     this.category = category;
+    this.borrowingCustomerId = null;
+    this.borrowingCustomerName = null;
   }
 }
 
